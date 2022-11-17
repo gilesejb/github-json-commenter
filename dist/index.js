@@ -2,7 +2,7 @@
 /******/ 	var __webpack_modules__ = ({
 
 /***/ 3109:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+/***/ (function(__unused_webpack_module, __unused_webpack_exports, __nccwpck_require__) {
 
 "use strict";
 
@@ -15,13 +15,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-const fs_1 = __importDefault(__nccwpck_require__(7147));
+const fs = __nccwpck_require__(7147);
+const core = __nccwpck_require__(2186);
+const github = __nccwpck_require__(5438);
 function readJSON(filename) {
-    const rawdata = fs_1.default.readFileSync(filename);
+    const rawdata = fs.readFileSync(filename);
     const benchmarkJSON = JSON.parse(rawdata.toString());
     return benchmarkJSON;
 }
@@ -45,18 +43,16 @@ function createMessage(benchmark, comparisonBenchmark) {
     }
     return message;
 }
-const core_1 = __importDefault(__nccwpck_require__(2186));
-const github_1 = __importDefault(__nccwpck_require__(5438));
 function run() {
     var _a;
     return __awaiter(this, void 0, void 0, function* () {
-        if (github_1.default.context.eventName !== 'pull_request') {
-            core_1.default.setFailed('Can only run on Pull Requests!');
+        if (github.context.eventName !== 'pull_request') {
+            core.setFailed('Can only run on Pull Requests!');
             return;
         }
-        const githubToken = core_1.default.getInput('token');
-        const benchmarkFilename = core_1.default.getInput('json_file');
-        const oldBenchmarkFilename = core_1.default.getInput('comparison_json_file');
+        const githubToken = core.getInput('token');
+        const benchmarkFilename = core.getInput('json_file');
+        const oldBenchmarkFilename = core.getInput('comparison_json_file');
         const benchmarks = readJSON(benchmarkFilename);
         let oldBenchmarks = undefined;
         if (oldBenchmarkFilename) {
@@ -69,10 +65,10 @@ function run() {
         }
         const message = createMessage(benchmarks, oldBenchmarks);
         console.log(message);
-        const context = github_1.default.context;
+        const context = github.context;
         const repo = context.repo;
         const prNumber = ((_a = context.payload.pull_request) === null || _a === void 0 ? void 0 : _a.number) || 0;
-        const octokit = github_1.default.getOctokit(githubToken);
+        const octokit = github.getOctokit(githubToken);
         const { data: comments } = yield octokit.rest.issues.listComments(Object.assign(Object.assign({}, repo), { issue_number: prNumber }));
         const comment = comments.find(comment => {
             var _a, _b;

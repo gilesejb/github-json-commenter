@@ -1,4 +1,6 @@
-import fs from 'fs';
+const fs = require('fs');
+const core = require('@actions/core');
+const github = require('@actions/github');
 
 function readJSON(filename: string) {
   const rawdata = fs.readFileSync(filename);
@@ -30,9 +32,6 @@ function createMessage(benchmark, comparisonBenchmark) : string {
 
   return message;
 }
-
-import core from '@actions/core';
-import github from '@actions/github';
 
 async function run() {
   if (github.context.eventName !== 'pull_request') {
