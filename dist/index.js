@@ -87,7 +87,7 @@ function run() {
         }
     });
 }
-run().catch(error => core_1.default.setFailed(`workflow failed: ${error.message}`));
+run();
 
 
 /***/ }),

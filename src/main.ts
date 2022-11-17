@@ -91,4 +91,4 @@ async function run() {
   }
 }
 
-run().catch(error => core.setFailed(`workflow failed: ${error.message}`))
+run()
