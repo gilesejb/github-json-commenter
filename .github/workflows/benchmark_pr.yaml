@@ -45,6 +45,7 @@ jobs:
           # See here: https://developer.github.com/webhooks/event-payloads/#pull_request
           #commit: "8db9c5bdee4e5c14898b1ad8762b4327895fe8fa"
           search_artifacts: true
+          if_no_artifact_found: warn
         # The benchmark on the default branch could fail for
         # multiple reasons. We still want to go on with
         # this workflow, even if the default branch
