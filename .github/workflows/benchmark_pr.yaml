@@ -31,7 +31,7 @@ jobs:
           # to access the GitHub API.
           github_token: ${{ github.token }}
           # A reference to our other workflow file
-          workflow: benchmark_default.yml
+          workflow: benchmark_default.yaml
           # The name of the artifact we created there
           name: benchmark_results
           # Where to put the downloaded artifacts
